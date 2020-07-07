@@ -74,7 +74,7 @@ React with NodeJs on AWS
 
 
 
-###server
+### server
 // 서버 상시구동
 nohup yarn dev &
 // 서버 종료
