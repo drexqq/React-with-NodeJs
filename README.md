@@ -71,3 +71,11 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 # React-with-NodeJs
 React with NodeJs on AWS
 >>>>>>> origin/master
+
+
+
+###server
+// 서버 상시구동
+nohup yarn dev &
+// 서버 종료
+fuser -k [port]/tcp
