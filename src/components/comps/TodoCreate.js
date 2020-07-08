@@ -97,8 +97,9 @@ function TodoCreate() {
             },
             body: JSON.stringify(todo)
         })
-        .then(response => response.json())
         .then(response => {
+            response = response.json();
+
             if(response.result) {
                 dispatch({
                     type: 'CREATE',
