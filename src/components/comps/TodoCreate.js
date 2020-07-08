@@ -89,8 +89,8 @@ function TodoCreate() {
             text: value,
             done: false,
         }
-
-        fetch('http://3.23.219.141:5000/api/insertShedule', {
+        const proxyurl = "https://cors-anywhere.herokuapp.com/";
+        fetch(proxyurl+'http://3.23.219.141:5000/api/insertShedule', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
