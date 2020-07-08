@@ -89,31 +89,34 @@ function TodoCreate() {
       text: value,
       done: false,
     };
-    let url = ":5000/api/insertShedule";
-    fetch(url, {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(todo),
-    })
+    let url = "http://3.23.219.141:5000/api/insertShedule";
+    fetch(url)
       .then((response) => response.json())
-      .then((response) => {
-        if (response.result) {
-          dispatch({
-            type: "CREATE",
-            todo: todo,
-          });
+      .then((response) => console.log("됐니"));
+    // fetch(url, {
+    //   method: "POST",
+    //   mode: "cors",
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(todo),
+    // })
+    //   .then((response) => response.json())
+    //   .then((response) => {
+    //     if (response.result) {
+    //       dispatch({
+    //         type: "CREATE",
+    //         todo: todo,
+    //       });
 
-          setValue("");
-          setOpen(false);
-          nextId.current += 1;
-        } else {
-          alert("실패함");
-        }
-      });
+    //       setValue("");
+    //       setOpen(false);
+    //       nextId.current += 1;
+    //     } else {
+    //       alert("실패함");
+    //     }
+    //   });
   };
 
   return (
