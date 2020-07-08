@@ -90,7 +90,10 @@ function TodoCreate() {
       done: false,
     };
     let url = "http://3.23.219.141:5000/api/todos";
-    fetch(url)
+    fetch(url, {
+      method: "POST",
+      mode: "cors",
+    })
       .then((response) => response.json())
       .then((response) => console.log("됐니"));
     // fetch(url, {
