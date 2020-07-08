@@ -92,7 +92,7 @@ function TodoCreate() {
     let url = "http://3.23.219.141:5000/api/insertShedule";
     fetch(url, {
       method: "POST",
-      mode: "no-cors",
+      mode: "cors",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
