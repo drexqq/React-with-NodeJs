@@ -89,7 +89,7 @@ function TodoCreate() {
       text: value,
       done: false,
     };
-    let url = "http://3.23.219.141:5000/api/todos";
+    let url = "http://3.23.219.141:5000/api/insertSchedule";
     fetch(url, {
       method: "POST",
       mode: "cors",
