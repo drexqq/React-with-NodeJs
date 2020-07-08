@@ -94,6 +94,7 @@ function TodoCreate() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Referer'     : 'http://3.23.219.141:3000/'
             },
             body: JSON.stringify(todo)
         })
