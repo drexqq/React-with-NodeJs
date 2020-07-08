@@ -89,8 +89,8 @@ function TodoCreate() {
             text: value,
             done: false,
         }
-    
-        fetch('http://3.23.219.141:5000/api/insertShedule', {
+        let url = "http://3.23.219.141:5000/api/insertShedule";
+        fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
