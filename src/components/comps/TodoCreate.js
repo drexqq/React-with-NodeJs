@@ -84,17 +84,34 @@ function TodoCreate() {
     const onChange = e => setValue(e.target.value);
     const onSubmit = e => {
         e.preventDefault();
-        dispatch({
-            type: 'CREATE',
-            todo: {
-                id: nextId.current,
-                text: value,
-                done: false,
+        let todo = {
+            id: nextId.current,
+            text: value,
+            done: false,
+        }
+
+        fetch('http://3.23.219.141:5000/api/insertShedule', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
             },
-        });
-        setValue('');
-        setOpen(false);
-        nextId.current += 1;
+            body: JSON.stringify(todo)
+        })
+        .then(response => response.json())
+        .then(response => {
+            if(response.result) {
+                dispatch({
+                    type: 'CREATE',
+                    todo: todo,
+                });
+
+                setValue('');
+                setOpen(false);
+                nextId.current += 1;
+            } else {
+                alert("실패함");
+            }
+        })
     };
 
     return (
