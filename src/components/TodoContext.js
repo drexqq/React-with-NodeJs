@@ -1,6 +1,5 @@
 import React, { useReducer, createContext, useContext, useRef } from "react";
-const todoSchema = require("../../../models/todo");
-console.log(todoSchema);
+
 const initialTodos = [
   {},
   {
