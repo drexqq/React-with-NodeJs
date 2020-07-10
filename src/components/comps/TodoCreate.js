@@ -85,8 +85,8 @@ function TodoCreate() {
   const onSubmit = (e) => {
     e.preventDefault();
     let todo = {
-      id: nextId.current,
-      text: value,
+      __id: nextId.current,
+      content: value,
       done: false,
     };
     let url = "http://3.23.219.141:5000/api/schedule";

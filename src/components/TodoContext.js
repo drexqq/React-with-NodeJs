@@ -1,9 +1,13 @@
 import React, { useReducer, createContext, useContext, useRef } from "react";
 
-// 만들 actions
-// Create
-// Toggle
-// Remove
+function load() {
+  const url = "http://3.23.219.141:5000/api/load";
+  const request = require("sync-request");
+  const datas = request("POST", url);
+  const list = JSON.parse(datas.getBody("utf8"));
+  return list.data;
+}
+const initialTodos = load();
 
 function TodoRecuder(state, action) {
   switch (action.type) {
@@ -11,12 +15,13 @@ function TodoRecuder(state, action) {
       return state.concat(action.todo);
 
     case "TOGGLE":
+      console.log(this);
       return state.map((todo) =>
-        todo.__id === action.__id ? { ...todo, done: !todo.done } : todo
+        todo.__id === action.id ? { ...todo, done: !todo.done } : todo
       );
 
     case "REMOVE":
-      return state.filter((todo) => todo.__id !== action.__id);
+      return state.filter((todo) => todo.__id !== action.id);
 
     default:
       throw new Error(`Unhandled Action type: ${action.type}`);
@@ -27,21 +32,8 @@ const TodoStateContext = createContext();
 const TodoDispatchContext = createContext();
 const TodoNextIdContext = createContext();
 export function TodoProvider({ children }) {
-  async function load() {
-    let url = "http://3.23.219.141:5000/api/load";
-    await fetch(url, {
-      method: "POST",
-      mode: "cors",
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        return response.data;
-      });
-  }
-  console.log(load());
-  const initialTodos = [];
   const [state, dispatch] = useReducer(TodoRecuder, initialTodos);
-  const nextId = useRef(1);
+  const nextId = useRef(initialTodos.length);
   return (
     <TodoStateContext.Provider value={state}>
       <TodoDispatchContext.Provider value={dispatch}>
