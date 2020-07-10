@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { MdDone, MdDelete } from "react-icons/md";
-import { useTodoDispatch, useTodoNextId } from "../TodoContext";
+import { useTodoDispatch } from "../TodoContext";
 
 const Remove = styled.div`
   opacity: 0;
@@ -59,15 +59,28 @@ const TodoItemBlock = styled.div`
 
 function TodoItem({ id, done, text }) {
   const dispatch = useTodoDispatch();
-  const nextId = useTodoNextId();
 
   const onToggle = () => {
-    console.log(nextId);
-    dispatch({
-      type: "TOGGLE",
-      id,
-    });
+    let url = "http://3.23.219.141:5000/api/update";
+    fetch(url, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ done: !done, __id: id }),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+        dispatch({
+          type: "TOGGLE",
+          id,
+        });
+      });
   };
+
   const onRemove = () => {
     let url = "http://3.23.219.141:5000/api/delete";
     fetch(url, {
@@ -81,17 +94,10 @@ function TodoItem({ id, done, text }) {
     })
       .then((response) => response.json())
       .then((response) => {
-        if (response.result) {
-          console.log(response);
-          dispatch({
-            type: "REMOVE",
-            id,
-          });
-          nextId.current -= 1;
-          console.log(nextId);
-        } else {
-          alert("실패함");
-        }
+        dispatch({
+          type: "REMOVE",
+          id,
+        });
       });
   };
   return (

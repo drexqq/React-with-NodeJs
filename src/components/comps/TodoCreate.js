@@ -85,7 +85,7 @@ function TodoCreate() {
   const onSubmit = (e) => {
     e.preventDefault();
     let todo = {
-      __id: nextId.current,
+      __id: nextId,
       content: value,
       done: false,
     };
@@ -115,7 +115,6 @@ function TodoCreate() {
 
           setValue("");
           setOpen(false);
-          nextId.current += 1;
         } else {
           alert("실패함");
         }

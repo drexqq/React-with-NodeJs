@@ -1,4 +1,5 @@
-import React, { useReducer, createContext, useContext, useRef } from "react";
+// import React, { useReducer, createContext, useContext, useRef } from "react";
+import React, { useReducer, createContext, useContext } from "react";
 
 function load() {
   const url = "http://3.23.219.141:5000/api/load";
@@ -8,6 +9,25 @@ function load() {
   return list.data;
 }
 const initialTodos = load();
+function guid() {
+  function _s4() {
+    return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+  }
+  return (
+    _s4() +
+    _s4() +
+    "-" +
+    _s4() +
+    "-" +
+    _s4() +
+    "-" +
+    _s4() +
+    "-" +
+    _s4() +
+    _s4() +
+    _s4()
+  );
+}
 
 function TodoRecuder(state, action) {
   switch (action.type) {
@@ -15,7 +35,6 @@ function TodoRecuder(state, action) {
       return state.concat(action.todo);
 
     case "TOGGLE":
-      console.log(this);
       return state.map((todo) =>
         todo.__id === action.id ? { ...todo, done: !todo.done } : todo
       );
@@ -33,7 +52,7 @@ const TodoDispatchContext = createContext();
 const TodoNextIdContext = createContext();
 export function TodoProvider({ children }) {
   const [state, dispatch] = useReducer(TodoRecuder, initialTodos);
-  const nextId = useRef(initialTodos.length);
+  const nextId = guid();
   return (
     <TodoStateContext.Provider value={state}>
       <TodoDispatchContext.Provider value={dispatch}>
